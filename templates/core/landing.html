@@ -1,0 +1,532 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-gradient-to-b from-blue-900 to-blue-800 py-24">
+  <div class="container mx-auto px-4 text-center">
+    <h1 class="text-5xl font-bold text-white mb-6">Register Your Business in Kenya</h1>
+    <p class="text-xl text-blue-100 mb-10 max-w-3xl mx-auto">
+      Fast, secure online business registration with government-compliant verification. 
+      Get your business legally recognized in as little as 48 hours.
+    </p>
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <a href="{% url 'register' %}" class="bg-amber-500 hover:bg-amber-600 text-blue-900 px-10 py-4 rounded-lg font-semibold text-lg inline-block transition duration-300 shadow-lg hover:shadow-xl">
+        Get Started Now
+      </a>
+      <a href="#how-it-works" class="border-2 border-amber-500 text-amber-400 hover:bg-blue-700 px-10 py-4 rounded-lg font-medium text-lg inline-block transition duration-300">
+        Learn More
+      </a>
+    </div>
+    <div class="mt-12 flex justify-center">
+      <div class="flex items-center space-x-2 text-blue-200">
+        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+        </svg>
+        <span>Trusted by over 5,000 Kenyan businesses</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-blue-900 mb-4">Why Register With Us?</h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        We simplify the business registration process while ensuring full compliance with Kenyan regulations
+      </p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-10">
+      <!-- Feature 1 -->
+      <div class="bg-blue-50 p-8 rounded-xl shadow-md border-t-4 border-amber-500 transform hover:-translate-y-2 transition duration-300">
+        <div class="text-amber-500 mb-5">
+          <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+          </svg>
+        </div>
+        <h3 class="text-2xl font-semibold text-center mb-4 text-blue-800">Government Approved</h3>
+        <p class="text-gray-700 text-center">
+          All registrations comply with Kenyan business regulations and are directly linked to the eCitizen platform
+        </p>
+        <div class="mt-5 text-center">
+          <a href="#" class="text-amber-600 hover:text-amber-700 font-medium inline-flex items-center">
+            Learn more
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Feature 2 -->
+      <div class="bg-blue-50 p-8 rounded-xl shadow-md border-t-4 border-amber-500 transform hover:-translate-y-2 transition duration-300">
+        <div class="text-amber-500 mb-5">
+          <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <h3 class="text-2xl font-semibold text-center mb-4 text-blue-800">24/7 Access</h3>
+        <p class="text-gray-700 text-center">
+          Complete your registration anytime and manage your business profile from anywhere with our mobile-friendly platform
+        </p>
+        <div class="mt-5 text-center">
+          <a href="#" class="text-amber-600 hover:text-amber-700 font-medium inline-flex items-center">
+            Learn more
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Feature 3 -->
+      <div class="bg-blue-50 p-8 rounded-xl shadow-md border-t-4 border-amber-500 transform hover:-translate-y-2 transition duration-300">
+        <div class="text-amber-500 mb-5">
+          <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+          </svg>
+        </div>
+        <h3 class="text-2xl font-semibold text-center mb-4 text-blue-800">Verification Ready</h3>
+        <p class="text-gray-700 text-center">
+          Instantly verifiable by banks, financial institutions, and government agencies with our secure QR code system
+        </p>
+        <div class="mt-5 text-center">
+          <a href="#" class="text-amber-600 hover:text-amber-700 font-medium inline-flex items-center">
+            Learn more
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Business Types Section -->
+<section class="py-20 bg-blue-900 text-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold mb-4">Business Types We Register</h2>
+      <p class="text-xl text-blue-200 max-w-2xl mx-auto">
+        We handle all types of business registrations under Kenyan law
+      </p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-blue-800 p-8 rounded-lg hover:bg-blue-700 transition duration-300">
+        <h3 class="text-xl font-semibold mb-4 flex items-center">
+          <svg class="w-6 h-6 mr-3 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+          </svg>
+          Sole Proprietorship
+        </h3>
+        <p class="text-blue-100">
+          Ideal for individual entrepreneurs with simple business structures. Fastest registration with minimal requirements.
+        </p>
+      </div>
+      <div class="bg-blue-800 p-8 rounded-lg hover:bg-blue-700 transition duration-300">
+        <h3 class="text-xl font-semibold mb-4 flex items-center">
+          <svg class="w-6 h-6 mr-3 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path>
+          </svg>
+          Partnerships
+        </h3>
+        <p class="text-blue-100">
+          For businesses with 2-20 partners. We handle partnership agreements and registration simultaneously.
+        </p>
+      </div>
+      <div class="bg-blue-800 p-8 rounded-lg hover:bg-blue-700 transition duration-300">
+        <h3 class="text-xl font-semibold mb-4 flex items-center">
+          <svg class="w-6 h-6 mr-3 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2H5a1 1 0 010-2h12a2 2 0 01-2-2V4H6a1 1 0 00-1 1v12H4V4zm3 2a1 1 0 011-1h4a1 1 0 011 1v2a1 1 0 01-1 1H8a1 1 0 01-1-1V6z" clip-rule="evenodd"></path>
+          </svg>
+          Limited Companies
+        </h3>
+        <p class="text-blue-100">
+          For businesses seeking limited liability. Includes name reservation and memorandum/articles preparation.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how-it-works" class="py-20 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-blue-900 mb-4">How It Works</h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Our streamlined process makes business registration simple and stress-free
+      </p>
+    </div>
+    <div class="max-w-5xl mx-auto">
+      <!-- Step 1 -->
+      <div class="flex flex-col md:flex-row mb-16 items-center">
+        <div class="md:w-1/4 text-center mb-8 md:mb-0">
+          <div class="w-20 h-20 bg-amber-500 rounded-full text-blue-900 flex items-center justify-center mx-auto text-3xl font-bold shadow-lg">1</div>
+        </div>
+        <div class="md:w-3/4 bg-white p-8 rounded-xl shadow-md border-l-4 border-amber-500">
+          <h3 class="text-2xl font-semibold mb-4 text-blue-800">Create Your Account</h3>
+          <p class="text-gray-700 mb-4">
+            Provide your personal details including National ID or Passport number for verification. We use bank-level security to protect your information.
+          </p>
+          <ul class="space-y-2 text-gray-600">
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-amber-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <span>KRA PIN verification included</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-amber-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <span>Mobile number verification</span>
+            </li>
+            <li class="flex items-start">
+              <svg class="w-5 h-5 text-amber-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              <span>Email confirmation</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Step 2 -->
+      <div class="flex flex-col md:flex-row mb-16 items-center">
+        <div class="md:w-1/4 text-center mb-8 md:mb-0">
+          <div class="w-20 h-20 bg-amber-500 rounded-full text-blue-900 flex items-center justify-center mx-auto text-3xl font-bold shadow-lg">2</div>
+        </div>
+        <div class="md:w-3/4 bg-white p-8 rounded-xl shadow-md border-l-4 border-amber-500">
+          <h3 class="text-2xl font-semibold mb-4 text-blue-800">Register Your Business</h3>
+          <p class="text-gray-700 mb-4">
+            Fill in your business details including registration number (if available), business type, and location. Our system guides you through all required fields.
+          </p>
+          <div class="grid md:grid-cols-2 gap-6 mt-6">
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <h4 class="font-semibold text-blue-800 mb-2 flex items-center">
+                <svg class="w-5 h-5 text-amber-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
+                </svg>
+                Business Details
+              </h4>
+              <p class="text-sm text-gray-600">Name, type, industry, physical address</p>
+            </div>
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <h4 class="font-semibold text-blue-800 mb-2 flex items-center">
+                <svg class="w-5 h-5 text-amber-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm0 2h10v7h-2l-1 2H8l-1-2H5V5z" clip-rule="evenodd"></path>
+                </svg>
+                Ownership
+              </h4>
+              <p class="text-sm text-gray-600">Directors, shareholders, beneficial owners</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Step 3 -->
+      <div class="flex flex-col md:flex-row items-center">
+        <div class="md:w-1/4 text-center mb-8 md:mb-0">
+          <div class="w-20 h-20 bg-amber-500 rounded-full text-blue-900 flex items-center justify-center mx-auto text-3xl font-bold shadow-lg">3</div>
+        </div>
+        <div class="md:w-3/4 bg-white p-8 rounded-xl shadow-md border-l-4 border-amber-500">
+          <h3 class="text-2xl font-semibold mb-4 text-blue-800">Get Verified</h3>
+          <p class="text-gray-700 mb-4">
+            Receive your digital business profile that can be instantly verified by authorized partners. Your registration documents will be available for download.
+          </p>
+          <div class="bg-blue-50 p-6 rounded-lg mt-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+              <div>
+                <h4 class="font-semibold text-blue-800">What You'll Receive:</h4>
+                <ul class="mt-2 space-y-1 text-gray-600">
+                  <li class="flex items-start">
+                    <svg class="w-4 h-4 text-amber-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>Digital Certificate of Registration</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg class="w-4 h-4 text-amber-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>Verifiable QR Code</span>
+                  </li>
+                  <li class="flex items-start">
+                    <svg class="w-4 h-4 text-amber-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>Tax Compliance Certificate</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="mt-4 md:mt-0">
+                <a href="#" class="inline-flex items-center text-sm font-medium text-amber-600 hover:text-amber-700">
+                  View sample documents
+                  <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-20 bg-blue-800 text-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold mb-4">What Our Clients Say</h2>
+      <p class="text-xl text-blue-200 max-w-2xl mx-auto">
+        Trusted by businesses across Kenya
+      </p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-10">
+      <div class="bg-blue-700 p-8 rounded-xl">
+        <div class="flex items-center mb-4">
+          <div class="text-amber-400 mr-2">
+            ★★★★★
+          </div>
+        </div>
+        <blockquote class="text-blue-100 mb-6">
+          "Registered my pharmacy in under 3 days. The verification feature helped me open a business bank account immediately."
+        </blockquote>
+        <div class="flex items-center">
+          <div class="bg-blue-600 rounded-full w-12 h-12 flex items-center justify-center text-lg font-semibold mr-4">JK</div>
+          <div>
+            <div class="font-semibold">James Kariuki</div>
+            <div class="text-sm text-blue-300">Nairobi</div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-blue-700 p-8 rounded-xl">
+        <div class="flex items-center mb-4">
+          <div class="text-amber-400 mr-2">
+            ★★★★★
+          </div>
+        </div>
+        <blockquote class="text-blue-100 mb-6">
+          "As a foreign investor, I was worried about the process. Their team guided me through every step in perfect English."
+        </blockquote>
+        <div class="flex items-center">
+          <div class="bg-blue-600 rounded-full w-12 h-12 flex items-center justify-center text-lg font-semibold mr-4">SM</div>
+          <div>
+            <div class="font-semibold">Sarah Mwangi</div>
+            <div class="text-sm text-blue-300">Mombasa</div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-blue-700 p-8 rounded-xl">
+        <div class="flex items-center mb-4">
+          <div class="text-amber-400 mr-2">
+            ★★★★★
+          </div>
+        </div>
+        <blockquote class="text-blue-100 mb-6">
+          "The mobile verification saved me hours at the bank. My loan application was processed same day thanks to their system."
+        </blockquote>
+        <div class="flex items-center">
+          <div class="bg-blue-600 rounded-full w-12 h-12 flex items-center justify-center text-lg font-semibold mr-4">AO</div>
+          <div>
+            <div class="font-semibold">Aisha Omar</div>
+            <div class="text-sm text-blue-300">Kisumu</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-blue-900 mb-4">Simple, Transparent Pricing</h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        No hidden fees. All government charges included.
+      </p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <div class="border border-gray-200 rounded-xl p-8 hover:shadow-lg transition duration-300">
+        <h3 class="text-2xl font-semibold text-blue-800 mb-4">Sole Proprietor</h3>
+        <div class="text-4xl font-bold text-blue-900 mb-6">KSh 3,500</div>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-start">
+            <svg class="w-5 h-5 text-amber-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span>Business Name Registration</span>
+          </li>
+          <li class="flex items-start">
+            <svg class="w-5 h-5 text-amber-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span>KRA PIN Registration</span>
+          </li>
+          <li class="flex items-start">
+            <svg class="w-5 h-5 text-amber-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span>Digital Certificate</span>
+          </li>
+        </ul>
+        <a href="{% url 'register' %}" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium inline-block text-center">
+          Choose Plan
+        </a>
+      </div>
+      <div class="border-2 border-amber-500 rounded-xl p-8 shadow-md relative">
+        <div class="absolute top-0 right-0 bg-amber-500 text-blue-900 text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+          MOST POPULAR
+        </div>
+        <h3 class="text-2xl font-semibold text-blue-800 mb-4">Partnership</h3>
+        <div class="text-4xl font-bold text-blue-900 mb-6">KSh 8,500</div>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-start">
+            <svg class="w-5 h-5 text-amber-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span>All Sole Proprietor Features</span>
+          </li>
+          <li class="flex items-start">
+            <svg class="w-5 h-5 text-amber-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span>2-20 Partner Registration</span>
+          </li>
+          <li class="flex items-start">
+            <svg class="w-5 h-5 text-amber-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span>Partnership Agreement Draft</span>
+          </li>
+        </ul>
+        <a href="{% url 'register' %}" class="w-full bg-amber-500 hover:bg-amber-600 text-blue-900 px-6 py-3 rounded-lg font-medium inline-block text-center">
+          Choose Plan
+        </a>
+      </div>
+      <div class="border border-gray-200 rounded-xl p-8 hover:shadow-lg transition duration-300">
+        <h3 class="text-2xl font-semibold text-blue-800 mb-4">Limited Company</h3>
+        <div class="text-4xl font-bold text-blue-900 mb-6">KSh 15,000</div>
+        <ul class="space-y-3 mb-8">
+          <li class="flex items-start">
+            <svg class="w-5 h-5 text-amber-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span>All Partnership Features</span>
+          </li>
+          <li class="flex items-start">
+            <svg class="w-5 h-5 text-amber-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span>Name Reservation</span>
+          </li>
+          <li class="flex items-start">
+            <svg class="w-5 h-5 text-amber-500 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span>Memorandum & Articles</span>
+          </li>
+        </ul>
+        <a href="{% url 'register' %}" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium inline-block text-center">
+          Choose Plan
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-20 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-blue-900 mb-4">Frequently Asked Questions</h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Find answers to common questions about business registration in Kenya
+      </p>
+    </div>
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-4">
+        <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-amber-500">
+          <button class="flex items-center justify-between w-full text-left font-semibold text-blue-800">
+            <span>How long does the registration process take?</span>
+            <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="mt-3 text-gray-600">
+            Sole proprietorships typically take 2-3 business days, partnerships 3-5 days, and limited companies 5-7 business days. These timelines include government processing and our quality verification.
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-amber-500">
+          <button class="flex items-center justify-between w-full text-left font-semibold text-blue-800">
+            <span>What documents will I need to provide?</span>
+            <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="mt-3 text-gray-600">
+            At minimum you'll need a copy of your national ID or passport. For partnerships and companies, we'll need IDs for all directors/partners. Foreign investors may need additional documents which our team will advise on.
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-amber-500">
+          <button class="flex items-center justify-between w-full text-left font-semibold text-blue-800">
+            <span>How does the verification work?</span>
+            <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="mt-3 text-gray-600">
+            Each registered business receives a unique QR code. Banks and other institutions can scan this code to instantly verify your business details against our government-linked database. No more waiting for manual verification.
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-amber-500">
+          <button class="flex items-center justify-between w-full text-left font-semibold text-blue-800">
+            <span>Can I upgrade my business type later?</span>
+            <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="mt-3 text-gray-600">
+            Yes, we offer business type conversion services. For example, you can upgrade from sole proprietorship to limited company. Additional government fees will apply for such conversions.
+          </div>
+        </div>
+      </div>
+      <div class="mt-10 text-center">
+        <a href="#" class="text-amber-600 hover:text-amber-700 font-medium inline-flex items-center">
+          View all frequently asked questions
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-20 bg-gradient-to-r from-blue-900 to-blue-700 text-white">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-4xl font-bold mb-6">Start Your Business Journey Today</h2>
+    <p class="text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
+      Join thousands of Kenyan entrepreneurs who've launched their businesses with our help
+    </p>
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <a href="{% url 'register' %}" class="bg-amber-500 hover:bg-amber-600 text-blue-900 px-12 py-4 rounded-lg font-semibold text-lg inline-block transition duration-300 shadow-lg hover:shadow-xl">
+        Register Your Business Now
+      </a>
+      <a href="#" class="border-2 border-white text-white hover:bg-blue-800 px-12 py-4 rounded-lg font-medium text-lg inline-block transition duration-300">
+        Contact Our Team
+      </a>
+    </div>
+    <div class="mt-8 text-blue-200">
+      <p>Have questions? Call us at <span class="font-semibold text-white">+254 700 123456</span> or email <span class="font-semibold text-white">support@bizreg.co.ke</span></p>
+    </div>
+  </div>
+</section>
+{% endblock %}
