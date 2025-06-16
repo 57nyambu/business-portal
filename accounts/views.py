@@ -11,6 +11,11 @@ class RegisterView(CreateView):
     template_name = 'accounts/register.html'
     success_url = reverse_lazy('dashboard')  # Changed from 'login' to 'dashboard'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_register_page'] = True
+        return context
+
     def form_valid(self, form):
         response = super().form_valid(form)
         # Log the user in automatically after registration
@@ -42,7 +47,7 @@ def custom_login(request):
     else:
         form = CustomAuthenticationForm()
     
-    return render(request, 'accounts/login.html', {'form': form})
+    return render(request, 'accounts/login.html', {'form': form, 'is_login_page': True})
 
 
 @login_required
