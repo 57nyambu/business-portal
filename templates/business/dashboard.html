@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Your Registered Businesses</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Business Name</th>
+            <th>Type</th>
+            <th>Registration No.</th>
+            <th>County</th>
+            <th>Status</th>
+            <th>ID Proof</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for business in businesses %}
+        <tr>
+            <td>{{ business.name }}</td>
+            <td>{{ business.get_business_type_display }}</td>
+            <td>{{ business.registration_number|default:"-" }}</td>
+            <td>{{ business.get_county_display }}</td>
+            <td>{% if business.is_approved %}Approved{% else %}Pending Verification{% endif %}</td>
+            <td>
+                <a href="{{ business.id_front.url }}" target="_blank">Front</a> |
+                <a href="{{ business.id_back.url }}" target="_blank">Back</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">No businesses registered yet</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'register_business' %}">Register New Business</a>
+{% endblock %}

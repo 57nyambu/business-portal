@@ -1,88 +1,182 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
-    <div>
-      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-        Create your account
+<div class="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8 bg-gray-800 p-10 rounded-xl shadow-2xl border border-gray-700">
+    <div class="text-center">
+      <div class="mx-auto h-16 w-16 bg-indigo-600 rounded-full flex items-center justify-center mb-4 shadow-lg">
+        <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+        </svg>
+      </div>
+      <h2 class="text-3xl font-bold text-white">
+        Sign Up
       </h2>
-      <p class="mt-2 text-center text-sm text-gray-600">
-        All fields are required for business registration
+      <p class="mt-2 text-sm text-gray-400">
+        Create your account
       </p>
     </div>
     <form class="mt-8 space-y-6" method="POST">
       {% csrf_token %}
-      <div class="rounded-md shadow-sm space-y-4">
-        <!-- Username -->
+      
+      {% if messages %}
+      <div class="rounded-md {% if message.tags == 'success' %}bg-green-500{% else %}bg-red-500{% endif %} bg-opacity-10 p-4 mb-4 message">
+        {% for message in messages %}
+        <p class="text-sm {% if message.tags == 'success' %}text-green-400{% else %}text-red-400{% endif %}">{{ message }}</p>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if form.non_field_errors %}
+      <div class="rounded-md bg-red-500 bg-opacity-10 p-4 mb-4">
+        {% for error in form.non_field_errors %}
+        <p class="text-sm text-red-400">{{ error }}</p>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="rounded-md space-y-4">
+        <!-- First Name -->
         <div>
-          <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-          <input id="username" name="username" type="text" required
-                 class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm">
+          <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-300 mb-2">First Name</label>
+          {{ form.first_name }}
+          {% if form.first_name.errors %}
+          <p class="mt-1 text-sm text-red-400">{{ form.first_name.errors.0 }}</p>
+          {% endif %}
         </div>
-        
+
+        <!-- Last Name -->
+        <div>
+          <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-300 mb-2">Last Name</label>
+          {{ form.last_name }}
+          {% if form.last_name.errors %}
+          <p class="mt-1 text-sm text-red-400">{{ form.last_name.errors.0 }}</p>
+          {% endif %}
+        </div>
+
         <!-- Email -->
         <div>
-          <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
-          <input id="email" name="email" type="email" required
-                 class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm">
+          <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-300 mb-2">Work Email</label>
+          {{ form.email }}
+          {% if form.email.errors %}
+          <p class="mt-1 text-sm text-red-400">{{ form.email.errors.0 }}</p>
+          {% endif %}
         </div>
-        
-        <!-- National ID -->
+
+        <!-- ID Number -->
         <div>
-          <label for="id_number" class="block text-sm font-medium text-gray-700">National ID/Passport No.</label>
-          <input id="id_number" name="id_number" type="text" required
-                 class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                 pattern="[0-9]+" title="Numbers only">
+          <label for="{{ form.id_number.id_for_label }}" class="block text-sm font-medium text-gray-300 mb-2">National ID/Passport No.</label>
+          {{ form.id_number }}
+          {% if form.id_number.errors %}
+          <p class="mt-1 text-sm text-red-400">{{ form.id_number.errors.0 }}</p>
+          {% endif %}
         </div>
-        
-        <!-- Phone -->
+
+        <!-- Phone Number -->
         <div>
-          <label for="phone_number" class="block text-sm font-medium text-gray-700">Phone Number</label>
-          <input id="phone_number" name="phone_number" type="tel" required
-                 class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                 placeholder="e.g. 254700000000">
+          <label for="{{ form.phone_number.id_for_label }}" class="block text-sm font-medium text-gray-300 mb-2">Phone Number</label>
+          {{ form.phone_number }}
+          {% if form.phone_number.errors %}
+          <p class="mt-1 text-sm text-red-400">{{ form.phone_number.errors.0 }}</p>
+          {% endif %}
         </div>
-        
-        <!-- Password 1 -->
+
+        <!-- Physical Address 
         <div>
-          <label for="password1" class="block text-sm font-medium text-gray-700">Password</label>
-          <input id="password1" name="password1" type="password" required
-                 class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm">
+          <label for="{{ form.physical_address.id_for_label }}" class="block text-sm font-medium text-gray-300 mb-2">Physical Address</label>
+          {{ form.physical_address }}
+          {% if form.physical_address.errors %}
+          <p class="mt-1 text-sm text-red-400">{{ form.physical_address.errors.0 }}</p>
+          {% endif %}
+        </div>-->
+
+        <!-- Password -->
+        <div>
+          <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-300 mb-2">Password</label>
+          {{ form.password1 }}
+          {% if form.password1.errors %}
+            {% for error in form.password1.errors %}
+              <p class="mt-1 text-sm text-red-400">{{ error }}</p>
+            {% endfor %}
+          {% endif %}
+          <!-- Removed the default help_text -->
         </div>
-        
-        <!-- Password 2 -->
+
+        <!-- Confirm Password -->
         <div>
-          <label for="password2" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-          <input id="password2" name="password2" type="password" required
-                 class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm">
+          <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium text-gray-300 mb-2">Confirm Password</label>
+          {{ form.password2 }}
+          {% if form.password2.errors %}
+            {% for error in form.password2.errors %}
+              <p class="mt-1 text-sm text-red-400">{{ error }}</p>
+            {% endfor %}
+          {% endif %}
         </div>
       </div>
-
-      <div class="flex items-center">
-        <input id="terms" name="terms" type="checkbox" required
-               class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-        <label for="terms" class="ml-2 block text-sm text-gray-900">
-          I agree to the <a href="#" class="text-blue-600">Terms of Service</a> and <a href="#" class="text-blue-600">Privacy Policy</a>
-        </label>
+      <!-- Terms Checkbox -->
+      <div class="flex items-start">
+        <div class="flex items-center h-5">
+          <input id="terms" name="terms" type="checkbox" required
+                 class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-600 rounded bg-gray-700">
+        </div>
+        <div class="ml-3 text-sm">
+          <label for="terms" class="font-medium text-gray-300">
+            I accept the <a href="#" class="text-indigo-400 hover:text-indigo-300">Terms</a> and <a href="#" class="text-indigo-400 hover:text-indigo-300">Privacy Policy</a>
+          </label>
+        </div>
       </div>
 
       <div>
         <button type="submit"
-                class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-          Register Account
+        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+        onclick="this.disabled=true; this.innerHTML='Processing...'; this.form.submit();">
+        <span>{% if request.path == '/login/' %}Sign In{% else %}Register Account{% endif %}</span>
         </button>
       </div>
     </form>
     
-    <div class="text-center">
-      <p class="text-sm text-gray-600">
-        Already have an account? 
-        <a href="{% url 'login' %}" class="font-medium text-blue-600 hover:text-blue-500">
+    <div class="text-center pt-4 border-t border-gray-700">
+      <p class="text-sm text-gray-400">
+        Already registered? 
+        <a href="{% url 'login' %}" class="font-medium text-indigo-400 hover:text-indigo-300">
           Sign in here
         </a>
       </p>
     </div>
   </div>
 </div>
+{% endblock %}
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Handle success messages differently
+    const messages = document.querySelectorAll('.message');
+    messages.forEach(function(message) {
+      if (message.textContent.includes('successful')) {
+        // Success message - green background
+        message.classList.add('bg-green-500', 'bg-opacity-10');
+        message.querySelector('p').classList.add('text-green-400');
+      }
+      
+      // Auto-hide after 3 seconds
+      setTimeout(function() {
+        message.style.transition = 'opacity 0.5s ease-in-out';
+        message.style.opacity = '0';
+        setTimeout(function() {
+          message.remove();
+        }, 500);
+      }, 3000);
+    });
+
+    // Form validation
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+      const terms = document.getElementById('terms');
+      if (terms && !terms.checked) {
+        e.preventDefault();
+        alert('Please accept the Terms and Privacy Policy to continue.');
+      }
+    });
+  });
+</script>
 {% endblock %}

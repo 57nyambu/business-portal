@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="bg-white shadow-xl rounded-lg overflow-hidden">
+    <!-- Form Header -->
+    <div class="bg-gray-800 px-6 py-4 border-b border-gray-200">
+      <h2 class="text-2xl font-bold text-white">Business Registration</h2>
+      <p class="mt-1 text-gray-300">Complete all sections to register your business</p>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="divide-y divide-gray-200">
+      {% csrf_token %}
+      
+      <!-- Business Information Section -->
+      <div class="px-6 py-6">
+        <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
+          <svg class="h-5 w-5 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+          </svg>
+          Business Information
+        </h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.name.label }}</label>
+            {{ form.name }}
+            {% if form.name.errors %}
+              <p class="mt-1 text-sm text-red-600">{{ form.name.errors.as_text }}</p>
+            {% endif %}
+          </div>
+          
+          <div>
+            <label for="{{ form.business_type.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.business_type.label }}</label>
+            <select id="{{ form.business_type.id_for_label }}" name="{{ form.business_type.name }}" class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm">
+              {% for value, label in form.business_type.field.choices %}
+                <option value="{{ value }}" {% if form.business_type.value == value %}selected{% endif %}>{{ label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          
+          <div>
+            <label for="{{ form.registration_number.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.registration_number.label }}</label>
+            {{ form.registration_number }}
+          </div>
+          
+          <div>
+            <label for="{{ form.kra_pin.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.kra_pin.label }}</label>
+            {{ form.kra_pin }}
+          </div>
+        </div>
+      </div>
+      
+      <!-- Location Details Section -->
+      <div class="px-6 py-6">
+        <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
+          <svg class="h-5 w-5 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+          Location Details
+        </h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="{{ form.county.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.county.label }}</label>
+            <select id="{{ form.county.id_for_label }}" name="{{ form.county.name }}" class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm">
+              {% for value, label in form.county.field.choices %}
+                <option value="{{ value }}" {% if form.county.value == value %}selected{% endif %}>{{ label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          
+          <div class="md:col-span-2">
+            <label for="{{ form.physical_address.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.physical_address.label }}</label>
+            {{ form.physical_address }}
+          </div>
+        </div>
+      </div>
+      
+      <!-- Identification Section -->
+      <div class="px-6 py-6">
+        <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
+          <svg class="h-5 w-5 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path>
+          </svg>
+          Identification
+        </h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="{{ form.date_established.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.date_established.label }}</label>
+            {{ form.date_established }}
+          </div>
+          
+          <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+              <label for="{{ form.id_front.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.id_front.label }}</label>
+              <div class="mt-1 flex items-center">
+                {{ form.id_front }}
+              </div>
+            </div>
+            
+            <div>
+              <label for="{{ form.id_back.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.id_back.label }}</label>
+              <div class="mt-1 flex items-center">
+                {{ form.id_back }}
+              </div>
+            </div>
+            
+            <div>
+              <label for="{{ form.registration_certificate.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ form.registration_certificate.label }}</label>
+              <div class="mt-1 flex items-center">
+                {{ form.registration_certificate }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Form Footer -->
+      <div class="px-6 py-4 bg-gray-50 text-right">
+        <button type="submit" class="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+          Submit Registration
+          <svg class="ml-2 -mr-1 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  /* Custom form styling */
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  select,
+  textarea {
+    @apply mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm;
+  }
+  
+  input[type="file"] {
+    @apply text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100;
+  }
+  
+  .errorlist {
+    @apply mt-1 text-sm text-red-600;
+  }
+</style>
+{% endblock %}

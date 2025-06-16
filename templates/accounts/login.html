@@ -1,58 +1,91 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
-    <div>
-      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-        Sign in to your account
+<div class="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8 bg-gray-800 p-10 rounded-xl shadow-2xl border border-gray-700">
+    <div class="text-center">
+      <div class="mx-auto h-16 w-16 bg-indigo-600 rounded-full flex items-center justify-center mb-4 shadow-lg">
+        <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+        </svg>
+      </div>
+      <h2 class="text-3xl font-bold text-white">
+        Business Registration Portal
       </h2>
+      <p class="mt-2 text-sm text-gray-400">
+        Sign in to manage your business account and access exclusive features.
+      </p>
     </div>
+
     <form class="mt-8 space-y-6" method="POST">
       {% csrf_token %}
-      <input type="hidden" name="remember" value="true">
-      <div class="rounded-md shadow-sm space-y-4">
+      
+      {% if messages %}
+      <div class="rounded-md bg-red-500 bg-opacity-10 p-4">
+        {% for message in messages %}
+        <p class="text-sm text-red-400">{{ message }}</p>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if form.non_field_errors %}
+      <div class="rounded-md bg-red-500 bg-opacity-10 p-4">
+        {% for error in form.non_field_errors %}
+        <p class="text-sm text-red-400">{{ error }}</p>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="rounded-md space-y-4">
+        <!-- Email -->
         <div>
-          <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-          <input id="username" name="username" type="text" required
-                 class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm">
+          <label for="id_username" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+          {{ form.username }}
+          {% if form.username.errors %}
+          <p class="mt-1 text-sm text-red-400">{{ form.username.errors.0 }}</p>
+          {% endif %}
         </div>
+        
+        <!-- Password -->
         <div>
-          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-          <input id="password" name="password" type="password" required
-                 class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm">
+          <label for="id_password" class="block text-sm font-medium text-gray-300 mb-2">Password</label>
+          {{ form.password }}
+          {% if form.password.errors %}
+          <p class="mt-1 text-sm text-red-400">{{ form.password.errors.0 }}</p>
+          {% endif %}
         </div>
       </div>
 
       <div class="flex items-center justify-between">
         <div class="flex items-center">
-          <input id="remember-me" name="remember-me" type="checkbox"
-                 class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-          <label for="remember-me" class="ml-2 block text-sm text-gray-900">
+          <input id="remember_me" name="remember_me" type="checkbox"
+                 class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-600 rounded bg-gray-700">
+          <label for="remember_me" class="ml-2 block text-sm text-gray-300">
             Remember me
           </label>
         </div>
 
         <div class="text-sm">
-          <a href="#" class="font-medium text-blue-600 hover:text-blue-500">
-            Forgot your password?
+          <a href="#" class="font-medium text-indigo-400 hover:text-indigo-300">
+            Forgot password?
           </a>
         </div>
       </div>
 
       <div>
         <button type="submit"
-                class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-          Sign in
-        </button>
+        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+        onclick="this.disabled=true; this.innerHTML='Processing...'; this.form.submit();">
+        <span>{% if request.path == '/login/' %}Sign In{% else %}Register Account{% endif %}</span>
+      </button>
       </div>
     </form>
     
-    <div class="text-center">
-      <p class="text-sm text-gray-600">
-        Don't have an account? 
-        <a href="{% url 'register' %}" class="font-medium text-blue-600 hover:text-blue-500">
-          Register here
+    <div class="text-center pt-4 border-t border-gray-700">
+      <p class="text-sm text-gray-400">
+        New to our platform? 
+        <a href="{% url 'register' %}" class="font-medium text-indigo-400 hover:text-indigo-300">
+          Register your account
         </a>
       </p>
     </div>
