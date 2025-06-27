@@ -16,7 +16,7 @@
         Create your account
       </p>
     </div>
-    <form class="mt-8 space-y-6" method="POST">
+    <form class="mt-8 space-y-6" method="POST" id="registration-form">
       {% csrf_token %}
       
       {% if messages %}
@@ -81,15 +81,6 @@
           {% endif %}
         </div>
 
-        <!-- Physical Address 
-        <div>
-          <label for="{{ form.physical_address.id_for_label }}" class="block text-sm font-medium text-gray-300 mb-2">Physical Address</label>
-          {{ form.physical_address }}
-          {% if form.physical_address.errors %}
-          <p class="mt-1 text-sm text-red-400">{{ form.physical_address.errors.0 }}</p>
-          {% endif %}
-        </div>-->
-
         <!-- Password -->
         <div>
           <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-300 mb-2">Password</label>
@@ -99,7 +90,6 @@
               <p class="mt-1 text-sm text-red-400">{{ error }}</p>
             {% endfor %}
           {% endif %}
-          <!-- Removed the default help_text -->
         </div>
 
         <!-- Confirm Password -->
@@ -113,6 +103,7 @@
           {% endif %}
         </div>
       </div>
+      
       <!-- Terms Checkbox -->
       <div class="flex items-start">
         <div class="flex items-center h-5">
@@ -127,10 +118,9 @@
       </div>
 
       <div>
-        <button type="submit"
-          class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
-          onclick="this.disabled=true; this.innerHTML='Processing...'; this.form.submit();">
-          <span>{% if is_register_page %}Register Account{% else %}Sign In{% endif %}</span>
+        <button type="submit" id="submit-btn"
+          class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
+          <span id="submit-text">{% if is_register_page %}Register Account{% else %}Sign In{% endif %}</span>
         </button>
       </div>
     </form>
@@ -146,6 +136,7 @@
   </div>
 </div>
 {% endblock %}
+
 {% block extra_js %}
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -168,14 +159,30 @@
       }, 3000);
     });
 
-    // Form validation
-    const form = document.querySelector('form');
+    // Form validation and submission handling
+    const form = document.getElementById('registration-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const submitText = document.getElementById('submit-text');
+    
     form.addEventListener('submit', function(e) {
       const terms = document.getElementById('terms');
       if (terms && !terms.checked) {
         e.preventDefault();
         alert('Please accept the Terms and Privacy Policy to continue.');
+        return;
       }
+      
+      // Disable button and show processing state AFTER validation passes
+      submitBtn.disabled = true;
+      submitText.textContent = 'Processing...';
+      submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      
+      // Re-enable button after 10 seconds as fallback (in case of network issues)
+      setTimeout(function() {
+        submitBtn.disabled = false;
+        submitText.textContent = '{% if is_register_page %}Register Account{% else %}Sign In{% endif %}';
+        submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+      }, 10000);
     });
   });
 </script>

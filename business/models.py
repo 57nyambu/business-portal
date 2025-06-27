@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import User
+from django.utils import timezone
 
 COUNTY_CHOICES = [
     ('001', 'Mombasa'),
@@ -75,6 +76,21 @@ class Business(models.Model):
     registration_certificate = models.FileField(upload_to='certificates/', blank=True)
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.registration_number:
+            year = timezone.now().year
+            business_type_code = self.business_type.upper()
+            county_code = self.county
+            # Get next sequential number for this year, county, and business type
+            count = Business.objects.filter(
+                county=county_code,
+                business_type=self.business_type,
+                created_at__year=year
+            ).count() + 1
+            seq = str(count).zfill(5)
+            self.registration_number = f"{county_code}/{business_type_code}/{seq}/{year}".upper()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.name} ({self.get_business_type_display()})"

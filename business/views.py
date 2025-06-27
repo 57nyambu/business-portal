@@ -23,4 +23,4 @@ def dashboard(request):
         'businesses': businesses,
         'media_url': settings.MEDIA_URL
     }
-    return render(request, 'business/dashboard.html', context)
+    return render(request, 'business/dashboard.html/', context)

@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 class RegisterView(CreateView):
     form_class = UserRegistrationForm
     template_name = 'accounts/register.html'
-    success_url = reverse_lazy('dashboard')  # Changed from 'login' to 'dashboard'
+    success_url = reverse_lazy('landing')  # Redirect to homepage (change 'landing' to your homepage url name)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -17,12 +17,18 @@ class RegisterView(CreateView):
         return context
 
     def form_valid(self, form):
-        response = super().form_valid(form)
-        # Log the user in automatically after registration
         user = form.save()
-        login(self.request, user)
-        messages.success(self.request, "Registration successful! Welcome to your dashboard.")
-        return response
+        authenticated_user = authenticate(
+            self.request,
+            username=user.email,
+            password=form.cleaned_data['password1']
+        )
+        if authenticated_user is not None:
+            login(self.request, authenticated_user)
+            messages.success(self.request, "Registration successful! Welcome!")
+        else:
+            messages.error(self.request, "Registration successful, but automatic login failed. Please log in manually.")
+        return redirect(self.success_url)  # Will now redirect to homepage
 
     def form_invalid(self, form):
         messages.error(self.request, "Please correct the errors below.")
@@ -37,7 +43,7 @@ def custom_login(request):
         if form.is_valid():
             email = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            user = authenticate(username=email, password=password)
+            user = authenticate(request, username=email, password=password)
             if user is not None:
                 login(request, user)
                 next_url = request.GET.get('next', 'dashboard')

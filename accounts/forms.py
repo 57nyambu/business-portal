@@ -4,6 +4,10 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate
 from .models import User
 
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
 class UserRegistrationForm(UserCreationForm):
     first_name = forms.CharField(
         widget=forms.TextInput(attrs={
@@ -35,13 +39,6 @@ class UserRegistrationForm(UserCreationForm):
             'placeholder': '+254700000000'
         })
     )
-    #physical_address = forms.CharField(
-    #    widget=forms.Textarea(attrs={
-    #        'class': 'bg-gray-700 text-white placeholder-gray-400 w-full px-4 py-3 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition',
-    #        'placeholder': 'Enter your physical address',
-    #        'rows': '3'
-    #    })
-    #)
     password1 = forms.CharField(
         label='Password',
         widget=forms.PasswordInput(attrs={
@@ -66,9 +63,24 @@ class UserRegistrationForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Remove password validation requirements
-        self.fields['password1'].validators = []
-        self.fields['password2'].validators = []
+        # Keep the password validation but customize the help text
+        self.fields['password1'].help_text = None
+        self.fields['password2'].help_text = None
+        
+        # Make sure email is used as username if your User model uses email as username
+        if hasattr(self.Meta.model, 'USERNAME_FIELD') and self.Meta.model.USERNAME_FIELD == 'email':
+            self.fields['email'].required = True
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data['email']
+        # If your User model uses email as username, set it here
+        if hasattr(user, 'USERNAME_FIELD') and user.USERNAME_FIELD == 'email':
+            user.username = self.cleaned_data['email']
+        
+        if commit:
+            user.save()
+        return user
 
 
 class CustomAuthenticationForm(AuthenticationForm):
