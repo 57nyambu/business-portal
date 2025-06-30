@@ -10,9 +10,15 @@
       Get your business legally recognized in as little as 48 hours.
     </p>
     <div class="flex flex-col sm:flex-row justify-center gap-4">
+      {% if user.is_authenticated %}
+      <a href="/business/register/" class="bg-amber-500 hover:bg-amber-600 text-blue-900 px-10 py-4 rounded-lg font-semibold text-lg inline-block transition duration-300 shadow-lg hover:shadow-xl">
+        Register New Business
+      </a>
+      {% else %}
       <a href="{% url 'register' %}" class="bg-amber-500 hover:bg-amber-600 text-blue-900 px-10 py-4 rounded-lg font-semibold text-lg inline-block transition duration-300 shadow-lg hover:shadow-xl">
         Get Started Now
       </a>
+      {% endif %}
       <a href="#how-it-works" class="border-2 border-amber-500 text-amber-400 hover:bg-blue-700 px-10 py-4 rounded-lg font-medium text-lg inline-block transition duration-300">
         Learn More
       </a>

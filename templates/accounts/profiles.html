@@ -8,82 +8,89 @@
     <div class="row">
         <!-- Account Sidebar -->
         <div class="col-md-3">
-            <div class="card">
+            <div class="card border-0 shadow-sm" style="background-color: #2a3042;">
                 <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">
-                        <img src="{% static 'images/default-profile.png' %}" alt="Profile Picture" class="rounded-circle" width="150">
+                        <img src="{% static 'images/default-profile.png' %}" alt="Profile Picture" class="rounded-circle border border-warning" width="150">
                         <div class="mt-3">
-                            <h4>{{ user.get_full_name }}</h4>
-                            <p class="text-muted">{{ user.email }}</p>
+                            <h4 class="text-white">{{ user.get_full_name }}</h4>
+                            <p class="text-warning">{{ user.email }}</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="list-group mt-3">
-                <a href="{% url 'profile' %}" class="list-group-item list-group-item-action">Profile</a>
-                <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action">Dashboard</a>
-                <a href="#" class="list-group-item list-group-item-action">Settings</a>
+            <div class="list-group mt-3 shadow-sm">
+                <a href="{% url 'profile' %}" class="list-group-item list-group-item-action bg-dark text-white border-warning">
+                    <i class="fas fa-user-circle mr-2 text-warning"></i>Profile
+                </a>
+                <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action bg-dark text-white border-warning">
+                    <i class="fas fa-tachometer-alt mr-2 text-warning"></i>Dashboard
+                </a>
+                <a href="#" class="list-group-item list-group-item-action bg-dark text-white border-warning">
+                    <i class="fas fa-cog mr-2 text-warning"></i>Settings
+                </a>
             </div>
         </div>
 
         <!-- Account Details -->
         <div class="col-md-9">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Account Information</h5>
-                    <hr>
+            <div class="card border-0 shadow-sm" style="background-color: #2a3042;">
+                <div class="card-body text-white">
+                    <h5 class="card-title text-warning">Account Information</h5>
+                    <hr class="border-warning">
                     <div class="row">
                         <div class="col-sm-3">
-                            <p class="mb-0">Full Name</p>
+                            <p class="mb-0 font-weight-bold">Full Name</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ user.get_full_name }}</p>
+                            <p class="text-light mb-0">{{ user.get_full_name }}</p>
                         </div>
                     </div>
-                    <hr>
+                    <hr class="border-warning">
                     <div class="row">
                         <div class="col-sm-3">
-                            <p class="mb-0">Email</p>
+                            <p class="mb-0 font-weight-bold">Email</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ user.email }}</p>
+                            <p class="text-light mb-0">{{ user.email }}</p>
                         </div>
                     </div>
-                    <hr>
+                    <hr class="border-warning">
                     <div class="row">
                         <div class="col-sm-3">
-                            <p class="mb-0">Date Joined</p>
+                            <p class="mb-0 font-weight-bold">Date Joined</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ user.date_joined|date:"F d, Y" }}</p>
+                            <p class="text-light mb-0">{{ user.date_joined|date:"F d, Y" }}</p>
                         </div>
                     </div>
-                    <hr>
+                    <hr class="border-warning">
                     <div class="row">
                         <div class="col-sm-3">
-                            <p class="mb-0">Last Login</p>
+                            <p class="mb-0 font-weight-bold">Last Login</p>
                         </div>
                         <div class="col-sm-9">
-                            <p class="text-muted mb-0">{{ user.last_login|date:"F d, Y H:i" }}</p>
+                            <p class="text-light mb-0">{{ user.last_login|date:"F d, Y H:i" }}</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Activity Section -->
-            <div class="card mt-3">
-                <div class="card-body">
-                    <h5 class="card-title">Recent Activity</h5>
-                    <hr>
+            <div class="card mt-3 border-0 shadow-sm" style="background-color: #2a3042;">
+                <div class="card-body text-white">
+                    <h5 class="card-title text-warning">Recent Activity</h5>
+                    <hr class="border-warning">
                     {% if user_activities %}
                         {% for activity in user_activities %}
                             <div class="activity-item">
-                                <p>{{ activity.description }}</p>
-                                <small class="text-muted">{{ activity.timestamp|timesince }} ago</small>
+                                <p class="mb-1">{{ activity.description }}</p>
+                                <small class="text-warning">{{ activity.timestamp|timesince }} ago</small>
                             </div>
+                            {% if not forloop.last %}<hr class="border-warning">{% endif %}
                         {% endfor %}
                     {% else %}
-                        <p class="text-muted">No recent activity</p>
+                        <p class="text-light">No recent activity</p>
                     {% endif %}
                 </div>
             </div>
@@ -94,12 +101,40 @@
 
 {% block extra_css %}
 <style>
-    .activity-item {
-        padding: 10px 0;
-        border-bottom: 1px solid #eee;
+    body {
+        background-color: #1a1e2e;
+        color: #f8f9fa;
     }
-    .activity-item:last-child {
-        border-bottom: none;
+    
+    .card {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    
+    .activity-item {
+        padding: 12px 0;
+    }
+    
+    .list-group-item {
+        transition: all 0.3s ease;
+    }
+    
+    .list-group-item:hover {
+        background-color: #3a4055 !important;
+        transform: translateX(5px);
+    }
+    
+    .rounded-circle {
+        object-fit: cover;
+    }
+    
+    hr {
+        opacity: 0.3;
     }
 </style>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Font Awesome for icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 {% endblock %}

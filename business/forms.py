@@ -7,7 +7,6 @@ class BusinessRegistrationForm(forms.ModelForm):
         fields = [
             'name',
             'business_type',
-            'registration_number',
             'kra_pin',
             'county',
             'physical_address',

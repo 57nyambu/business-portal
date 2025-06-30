@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'business',
     'api',
     'core',
+    'management',
 ]
 
 MIDDLEWARE = [
