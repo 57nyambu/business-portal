@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            padding: 40px;
+            border: 10px solid #0b284c;
+        }
+        .header {
+            text-align: center;
+        }
+        .logo {
+            height: 80px;
+        }
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+        .certificate-body {
+            margin-top: 40px;
+            padding: 20px;
+            border: 2px solid #333;
+        }
+        .certificate-body h2 {
+            text-align: center;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+        .info {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="{{ logo_url }}" class="logo">
+        <div class="title">State Department of Business and Investment</div>
+    </div>
+
+    <div class="certificate-body">
+        <h2>Certificate of Business Registration</h2>
+        <div class="info">
+            <p><strong>Business Name:</strong> {{ business.name }}</p>
+            <p><strong>Registration Number:</strong> {{ business.registration_number }}</p>
+            <p><strong>Business Type:</strong> {{ business.get_business_type_display }}</p>
+            <p><strong>KRA PIN:</strong> {{ business.kra_pin }}</p>
+            <p><strong>County:</strong> {{ business.get_county_display }}</p>
+            <p><strong>Physical Address:</strong> {{ business.physical_address }}</p>
+            <p><strong>Date of Establishment:</strong> {{ business.date_established }}</p>
+            <p><strong>Date Approved:</strong> {{ business.created_at.date }}</p>
+        </div>
+    </div>
+</body>
+</html>
