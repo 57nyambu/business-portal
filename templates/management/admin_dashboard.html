@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block title %}Admin Dashboard{% endblock %}
 
 {% block content %}
@@ -30,7 +29,16 @@
             </div>
         </div>
     </div>
-
+<!-- Temporary Debug Info -->
+<div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
+    <strong>Debug Info:</strong><br>
+    Approved: {{ approved_count }}<br>
+    Pending: {{ pending_count }}<br>
+    Rejected: {{ rejected_count }}<br>
+    Users: {{ user_count }}<br>
+    All Businesses: {{ all_businesses|length }}<br>
+    All Users: {{ users|length }}<br>
+</div>
     <!-- Admin Navigation -->
     <div class="bg-white shadow">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -77,7 +85,7 @@
                                 <dl>
                                     <dt class="text-sm font-medium text-gray-500 truncate">Approved Businesses</dt>
                                     <dd>
-                                        <div class="text-lg font-medium text-gray-900">1,248</div>
+                                        <div class="text-lg font-medium text-gray-900">{{ approved_count }}</div>
                                     </dd>
                                 </dl>
                             </div>
@@ -97,7 +105,7 @@
                                 <dl>
                                     <dt class="text-sm font-medium text-gray-500 truncate">Pending Approvals</dt>
                                     <dd>
-                                        <div class="text-lg font-medium text-gray-900">87</div>
+                                        <div class="text-lg font-medium text-gray-900">{{ pending_count }}</div>
                                     </dd>
                                 </dl>
                             </div>
@@ -117,7 +125,7 @@
                                 <dl>
                                     <dt class="text-sm font-medium text-gray-500 truncate">Registered Users</dt>
                                     <dd>
-                                        <div class="text-lg font-medium text-gray-900">2,156</div>
+                                        <div class="text-lg font-medium text-gray-900">{{ user_count }}</div>
                                     </dd>
                                 </dl>
                             </div>
@@ -137,7 +145,7 @@
                                 <dl>
                                     <dt class="text-sm font-medium text-gray-500 truncate">Rejected Applications</dt>
                                     <dd>
-                                        <div class="text-lg font-medium text-gray-900">42</div>
+                                        <div class="text-lg font-medium text-gray-900">{{ rejected_count }}</div>
                                     </dd>
                                 </dl>
                             </div>
@@ -154,58 +162,25 @@
                 </div>
                 <div class="px-4 py-5 sm:p-6">
                     <ul class="space-y-4">
+                        {% for activity in recent_activity %}
                         <li class="flex items-start">
                             <div class="flex-shrink-0">
-                                <div class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
-                                    <svg class="h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                <div class="h-8 w-8 rounded-full {{ activity.icon_bg }} flex items-center justify-center">
+                                    <svg class="h-5 w-5 {{ activity.icon_color }}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        {{ activity.icon_svg|safe }}
                                     </svg>
                                 </div>
                             </div>
                             <div class="ml-3">
-                                <p class="text-sm font-medium text-gray-900">Business approved <span class="text-blue-600">"Nairobi Tech Solutions"</span></p>
-                                <p class="text-sm text-gray-500">Approved by Admin User • 15 minutes ago</p>
+                                <p class="text-sm font-medium text-gray-900">{{ activity.message|safe }}</p>
+                                <p class="text-sm text-gray-500">{{ activity.meta }}</p>
                             </div>
                         </li>
-                        <li class="flex items-start">
-                            <div class="flex-shrink-0">
-                                <div class="h-8 w-8 rounded-full bg-red-100 flex items-center justify-center">
-                                    <svg class="h-5 w-5 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="ml-3">
-                                <p class="text-sm font-medium text-gray-900">Business rejected <span class="text-blue-600">"Coastal Tours Ltd"</span></p>
-                                <p class="text-sm text-gray-500">Rejected by Admin User • 1 hour ago</p>
-                            </div>
+                        {% empty %}
+                        <li>
+                            <div class="text-gray-500">No recent activity.</div>
                         </li>
-                        <li class="flex items-start">
-                            <div class="flex-shrink-0">
-                                <div class="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center">
-                                    <svg class="h-5 w-5 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="ml-3">
-                                <p class="text-sm font-medium text-gray-900">New user registered <span class="text-blue-600">"John Doe"</span></p>
-                                <p class="text-sm text-gray-500">Registered • 2 hours ago</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <div class="flex-shrink-0">
-                                <div class="h-8 w-8 rounded-full bg-yellow-100 flex items-center justify-center">
-                                    <svg class="h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="ml-3">
-                                <p class="text-sm font-medium text-gray-900">New business submitted <span class="text-blue-600">"Eldoret Agro Products"</span></p>
-                                <p class="text-sm text-gray-500">Awaiting approval • 3 hours ago</p>
-                            </div>
-                        </li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <div class="px-4 py-4 sm:px-6 border-t border-gray-200">
@@ -242,83 +217,34 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            {% for i in "12345"|make_list %}
+                            {% for business in pending_businesses %}
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <div class="text-sm font-medium text-gray-900">Sample Business {{ i }}</div>
+                                        <div class="text-sm font-medium text-gray-900">{{ business.name }}</div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">
-                                        {% cycle 'Limited Company' 'Sole Proprietorship' 'Partnership' 'Cooperative' 'NGO' %}
-                                    </div>
+                                    <div class="text-sm text-gray-500">{{ business.get_business_type_display }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">
-                                        {% cycle '2 days ago' '1 day ago' '5 hours ago' '3 hours ago' '1 hour ago' %}
-                                    </div>
+                                    <div class="text-sm text-gray-500">{{ business.created_at|timesince }} ago</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="#" class="text-blue-600 hover:text-blue-900 mr-3">Review</a>
-                                    <a href="#" class="text-green-600 hover:text-green-900 mr-3">Approve</a>
-                                    <a href="#" class="text-red-600 hover:text-red-900">Reject</a>
+                                    <a href="{% url 'business_review' business.id %}" class="text-blue-600 hover:text-blue-900 mr-3">Review</a>
+                                    <a href="{% url 'business_approve' business.id %}" class="text-green-600 hover:text-green-900 mr-3">Approve</a>
+                                    <a href="{% url 'business_reject' business.id %}" class="text-red-600 hover:text-red-900">Reject</a>
                                 </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="px-6 py-4 text-gray-500">No pending approvals.</td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
-                <div class="px-4 py-4 sm:px-6 border-t border-gray-200">
-                    <nav class="flex items-center justify-between">
-                        <div class="flex-1 flex justify-between sm:hidden">
-                            <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                Previous
-                            </a>
-                            <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                Next
-                            </a>
-                        </div>
-                        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                            <div>
-                                <p class="text-sm text-gray-700">
-                                    Showing <span class="font-medium">1</span> to <span class="font-medium">10</span> of <span class="font-medium">87</span> results
-                                </p>
-                            </div>
-                            <div>
-                                <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                                    <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                        <span class="sr-only">Previous</span>
-                                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                        </svg>
-                                    </a>
-                                    <a href="#" aria-current="page" class="z-10 bg-blue-50 border-blue-500 text-blue-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                                        1
-                                    </a>
-                                    <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                                        2
-                                    </a>
-                                    <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                                        3
-                                    </a>
-                                    <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
-                                        ...
-                                    </span>
-                                    <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                                        8
-                                    </a>
-                                    <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                        <span class="sr-only">Next</span>
-                                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                                        </svg>
-                                    </a>
-                                </nav>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
+                <!-- Pagination can be added here if needed -->
             </div>
 
             <!-- Approved Businesses -->
@@ -338,28 +264,26 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            {% for i in "123"|make_list %}
+                            {% for business in recent_approved_businesses %}
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <div class="text-sm font-medium text-gray-900">Approved Business {{ i }}</div>
+                                        <div class="text-sm font-medium text-gray-900">{{ business.name }}</div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">
-                                        {% cycle 'Limited Company' 'Sole Proprietorship' 'Partnership' %}
-                                    </div>
+                                    <div class="text-sm text-gray-500">{{ business.get_business_type_display }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">
-                                        {% cycle 'Today' 'Yesterday' '2 days ago' %}
-                                    </div>
+                                    <div class="text-sm text-gray-500">{{ business.created_at|date:"M d, Y" }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">
-                                        CPR/2023/000{{ i }}
-                                    </div>
+                                    <div class="text-sm text-gray-500">{{ business.registration_number }}</div>
                                 </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="px-6 py-4 text-gray-500">No recently approved businesses.</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -392,51 +316,45 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            {% for i in "123"|make_list %}
+                            {% for u in users %}
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <div class="text-sm font-medium text-gray-900">User {{ i }}</div>
+                                        <div class="text-sm font-medium text-gray-900">{{ u.get_full_name|title }}</div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">user{{ i }}@example.com</div>
+                                    <div class="text-sm text-gray-500">{{ u.email }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                        {% cycle 'bg-green-100 text-green-800' 'bg-blue-100 text-blue-800' 'bg-yellow-100 text-yellow-800' %}">
-                                        {% cycle 'Admin' 'Staff' 'User' %}
+                                        {% if u.is_superuser %}bg-green-100 text-green-800{% elif u.is_staff %}bg-blue-100 text-blue-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                                        {% if u.is_superuser %}Admin{% elif u.is_staff %}Staff{% else %}User{% endif %}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        Active
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {% if u.is_active %}bg-green-100 text-green-800{% else %}bg-red-100 text-red-800{% endif %}">
+                                        {% if u.is_active %}Active{% else %}Inactive{% endif %}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="#" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
-                                    <a href="#" class="text-red-600 hover:text-red-900">Deactivate</a>
+                                    <a href="{% url 'user_edit' u.id %}" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                                    {% if u.is_active %}
+                                    <a href="{% url 'user_deactivate' u.id %}" class="text-red-600 hover:text-red-900">Deactivate</a>
+                                    {% else %}
+                                    <a href="{% url 'user_activate' u.id %}" class="text-green-600 hover:text-green-900">Activate</a>
+                                    {% endif %}
                                 </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="px-6 py-4 text-gray-500">No users found.</td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
-                <div class="px-4 py-4 sm:px-6 border-t border-gray-200 flex items-center justify-between">
-                    <div>
-                        <p class="text-sm text-gray-700">
-                            Showing <span class="font-medium">1</span> to <span class="font-medium">3</span> of <span class="font-medium">24</span> users
-                        </p>
-                    </div>
-                    <div class="flex-1 flex justify-between sm:justify-end">
-                        <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                            Previous
-                        </a>
-                        <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                            Next
-                        </a>
-                    </div>
-                </div>
+                <!-- Pagination can be added here if needed -->
             </div>
 
             <!-- User Roles Management (for superusers only) -->
@@ -447,55 +365,8 @@
                     <p class="mt-1 text-sm text-gray-500">Configure access levels for different user roles</p>
                 </div>
                 <div class="px-4 py-5 sm:p-6">
-                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h4 class="text-md font-medium text-gray-900 mb-3">Administrator</h4>
-                            <ul class="space-y-2">
-                                <li class="flex items-start">
-                                    <input id="admin-all" name="admin-permissions" type="checkbox" checked disabled class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                    <label for="admin-all" class="ml-2 block text-sm text-gray-700">Full system access</label>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h4 class="text-md font-medium text-gray-900 mb-3">Staff</h4>
-                            <ul class="space-y-2">
-                                <li class="flex items-start">
-                                    <input id="staff-approvals" name="staff-permissions" type="checkbox" checked class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                    <label for="staff-approvals" class="ml-2 block text-sm text-gray-700">Business approvals</label>
-                                </li>
-                                <li class="flex items-start">
-                                    <input id="staff-users" name="staff-permissions" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                    <label for="staff-users" class="ml-2 block text-sm text-gray-700">User management</label>
-                                </li>
-                                <li class="flex items-start">
-                                    <input id="staff-reports" name="staff-permissions" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                    <label for="staff-reports" class="ml-2 block text-sm text-gray-700">View reports</label>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h4 class="text-md font-medium text-gray-900 mb-3">Standard User</h4>
-                            <ul class="space-y-2">
-                                <li class="flex items-start">
-                                    <input id="user-register" name="user-permissions" type="checkbox" checked disabled class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                    <label for="user-register" class="ml-2 block text-sm text-gray-700">Business registration</label>
-                                </li>
-                                <li class="flex items-start">
-                                    <input id="user-view" name="user-permissions" type="checkbox" checked disabled class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                    <label for="user-view" class="ml-2 block text-sm text-gray-700">View own businesses</label>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="mt-6 flex justify-end">
-                        <button type="button" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            Cancel
-                        </button>
-                        <button type="button" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            Save Permissions
-                        </button>
-                    </div>
+                    <!-- Role permissions management UI here -->
+                    <div class="text-gray-500">Role permissions management coming soon.</div>
                 </div>
             </div>
             {% endif %}
@@ -510,12 +381,14 @@
                         <p class="text-sm text-gray-500">All registered businesses in the system</p>
                         <div class="flex space-x-3">
                             <div class="relative">
-                                <input type="text" placeholder="Search businesses..." class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-                                    </svg>
-                                </div>
+                                <form method="get">
+                                    <input type="text" name="search" placeholder="Search businesses..." value="{{ request.GET.search }}" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </form>
                             </div>
                             <button class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                 Export
@@ -536,93 +409,42 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            {% for i in "12345"|make_list %}
+                            {% for business in all_businesses %}
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <div class="text-sm font-medium text-gray-900">Business {{ i }}</div>
+                                        <div class="text-sm font-medium text-gray-900">{{ business.name }}</div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">
-                                        {% cycle 'Limited Company' 'Sole Proprietorship' 'Partnership' 'Cooperative' 'NGO' %}
-                                    </div>
+                                    <div class="text-sm text-gray-500">{{ business.get_business_type_display }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">
-                                        CPR/2023/000{{ i }}
-                                    </div>
+                                    <div class="text-sm text-gray-500">{{ business.registration_number }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">
-                                        {% cycle 'Nairobi' 'Mombasa' 'Kisumu' 'Nakuru' 'Uasin Gishu' %}
-                                    </div>
+                                    <div class="text-sm text-gray-500">{{ business.get_county_display }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                        {% cycle 'bg-green-100 text-green-800' 'bg-yellow-100 text-yellow-800' 'bg-red-100 text-red-800' %}">
-                                        {% cycle 'Active' 'Pending' 'Rejected' %}
+                                        {% if business.status == 'approved' %}bg-green-100 text-green-800{% elif business.status == 'rejected' %}bg-red-100 text-red-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                                        {% if business.status == 'approved' %}Active{% elif business.status == 'rejected' %}Rejected{% else %}Pending{% endif %}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="#" class="text-blue-600 hover:text-blue-900 mr-3">View</a>
-                                    <a href="#" class="text-gray-600 hover:text-gray-900">Edit</a>
+                                    <a href="{% url 'business_detail' business.id %}" class="text-blue-600 hover:text-blue-900 mr-3">View</a>
+                                    <a href="{% url 'business_edit' business.id %}" class="text-gray-600 hover:text-gray-900">Edit</a>
                                 </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="px-6 py-4 text-gray-500">No businesses found.</td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
-                <div class="px-4 py-4 sm:px-6 border-t border-gray-200">
-                    <nav class="flex items-center justify-between">
-                        <div class="flex-1 flex justify-between sm:hidden">
-                            <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                Previous
-                            </a>
-                            <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-                                Next
-                            </a>
-                        </div>
-                        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                            <div>
-                                <p class="text-sm text-gray-700">
-                                    Showing <span class="font-medium">1</span> to <span class="font-medium">5</span> of <span class="font-medium">1248</span> results
-                                </p>
-                            </div>
-                            <div>
-                                <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                                    <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                        <span class="sr-only">Previous</span>
-                                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                        </svg>
-                                    </a>
-                                    <a href="#" aria-current="page" class="z-10 bg-blue-50 border-blue-500 text-blue-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                                        1
-                                    </a>
-                                    <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                                        2
-                                    </a>
-                                    <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                                        3
-                                    </a>
-                                    <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
-                                        ...
-                                    </span>
-                                    <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                                        25
-                                    </a>
-                                    <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                                        <span class="sr-only">Next</span>
-                                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                                        </svg>
-                                    </a>
-                                </nav>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
+                <!-- Pagination can be added here if needed -->
             </div>
         </div>
 
@@ -635,80 +457,7 @@
                     <p class="mt-1 text-sm text-gray-500">Generate and view system reports</p>
                 </div>
                 <div class="px-4 py-5 sm:p-6">
-                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h4 class="text-md font-medium text-gray-900 mb-2">Registration Trends</h4>
-                            <p class="text-sm text-gray-500 mb-4">Monthly business registration statistics</p>
-                            <div class="flex items-center space-x-3">
-                                <button class="inline-flex items-center px-3 py-1 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    Generate Report
-                                </button>
-                                <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    View Last
-                                </button>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h4 class="text-md font-medium text-gray-900 mb-2">User Activity</h4>
-                            <p class="text-sm text-gray-500 mb-4">User login and activity patterns</p>
-                            <div class="flex items-center space-x-3">
-                                <button class="inline-flex items-center px-3 py-1 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    Generate Report
-                                </button>
-                                <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    View Last
-                                </button>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h4 class="text-md font-medium text-gray-900 mb-2">Approval Metrics</h4>
-                            <p class="text-sm text-gray-500 mb-4">Processing times and approval rates</p>
-                            <div class="flex items-center space-x-3">
-                                <button class="inline-flex items-center px-3 py-1 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    Generate Report
-                                </button>
-                                <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    View Last
-                                </button>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h4 class="text-md font-medium text-gray-900 mb-2">County Distribution</h4>
-                            <p class="text-sm text-gray-500 mb-4">Business registrations by county</p>
-                            <div class="flex items-center space-x-3">
-                                <button class="inline-flex items-center px-3 py-1 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    Generate Report
-                                </button>
-                                <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    View Last
-                                </button>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h4 class="text-md font-medium text-gray-900 mb-2">Business Types</h4>
-                            <p class="text-sm text-gray-500 mb-4">Distribution of business types</p>
-                            <div class="flex items-center space-x-3">
-                                <button class="inline-flex items-center px-3 py-1 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    Generate Report
-                                </button>
-                                <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    View Last
-                                </button>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h4 class="text-md font-medium text-gray-900 mb-2">System Usage</h4>
-                            <p class="text-sm text-gray-500 mb-4">Peak times and usage patterns</p>
-                            <div class="flex items-center space-x-3">
-                                <button class="inline-flex items-center px-3 py-1 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    Generate Report
-                                </button>
-                                <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    View Last
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="text-gray-500">Reports functionality coming soon.</div>
                 </div>
             </div>
         </div>
@@ -725,24 +474,24 @@
                         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                             <div>
                                 <label for="business_prefix" class="block text-sm font-medium text-gray-700">Business ID Prefix</label>
-                                <input type="text" name="business_prefix" id="business_prefix" value="CPR" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                <input type="text" name="business_prefix" id="business_prefix" value="{{ business_prefix }}" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                             </div>
                             <div>
                                 <label for="default_county" class="block text-sm font-medium text-gray-700">Default County</label>
                                 <select id="default_county" name="default_county" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
                                     {% for code, name in COUNTY_CHOICES %}
-                                        <option value="{{ code }}" {% if code == '047' %}selected{% endif %}>{{ name }}</option>
+                                        <option value="{{ code }}" {% if code == default_county %}selected{% endif %}>{{ name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
                         </div>
                         <div>
                             <label for="approval_days" class="block text-sm font-medium text-gray-700">Default Approval Period (days)</label>
-                            <input type="number" name="approval_days" id="approval_days" value="7" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            <input type="number" name="approval_days" id="approval_days" value="{{ approval_days }}" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                         </div>
                         <div class="flex items-start">
                             <div class="flex items-center h-5">
-                                <input id="notifications" name="notifications" type="checkbox" checked class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                <input id="notifications" name="notifications" type="checkbox" {% if notifications %}checked{% endif %} class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
                             </div>
                             <div class="ml-3 text-sm">
                                 <label for="notifications" class="font-medium text-gray-700">Email Notifications</label>
@@ -751,7 +500,7 @@
                         </div>
                         <div class="flex items-start">
                             <div class="flex items-center h-5">
-                                <input id="maintenance" name="maintenance" type="checkbox" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                <input id="maintenance" name="maintenance" type="checkbox" {% if maintenance %}checked{% endif %} class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
                             </div>
                             <div class="ml-3 text-sm">
                                 <label for="maintenance" class="font-medium text-gray-700">Maintenance Mode</label>

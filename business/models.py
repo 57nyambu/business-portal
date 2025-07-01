@@ -1,7 +1,7 @@
 from django.db import models
 from accounts.models import User
 from django.utils import timezone
-from django.template.loader import render_to_string
+
 import os
 from django.conf import settings
 from reportlab.lib.pagesizes import A4
@@ -69,6 +69,12 @@ BUSINESS_TYPES = [
     ('other', 'Other')
 ]
 
+STATUS_CHOICES = [
+    ('pending', 'Pending'),
+    ('approved', 'Approved'),
+    ('rejected', 'Rejected'),
+]
+
 class Business(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
@@ -81,11 +87,11 @@ class Business(models.Model):
     id_front = models.ImageField(upload_to='ids/front/')
     id_back = models.ImageField(upload_to='ids/back/')
     registration_certificate = models.FileField(upload_to='certificates/', blank=True, null=True)
-    is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
 
     def save(self, *args, **kwargs):
-        if not self.registration_number and self.is_approved:
+        if not self.registration_number and self.status == 'approved':
             year = timezone.now().year
             count = Business.objects.filter(
                 county=self.county,
@@ -95,7 +101,7 @@ class Business(models.Model):
             seq = str(count).zfill(5)
             self.registration_number = f"CBR/{self.county}/{self.business_type.upper()}/{seq}/{year}"
         super().save(*args, **kwargs)
-        if self.is_approved and not self.registration_certificate:
+        if self.status == 'approved' and not self.registration_certificate:
             self.generate_certificate()
 
     def generate_certificate(self):
@@ -144,7 +150,7 @@ class Business(models.Model):
         buffer.close()
 
     def __str__(self):
-        return f"{self.name} ({self.get_business_type_display()})"
+        return f"{self.name} ({self.get_business_type_display()}) - status: {self.status}"
 
 
 class PartnershipDetail(models.Model):

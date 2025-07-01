@@ -64,3 +64,21 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.first_name
+
+    # Role methods
+    def get_role(self):
+        if self.is_superuser:
+            return "admin"
+        elif self.is_staff:
+            return "staff"
+        else:
+            return "user"
+
+    def is_admin(self):
+        return self.is_superuser
+
+    def is_staff_member(self):
+        return self.is_staff
+
+    def is_regular_user(self):
+        return not self.is_staff and not self.is_superuser

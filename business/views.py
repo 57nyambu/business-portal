@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from .forms import BusinessRegistrationForm, PartnershipDetailForm, CompanyDetailForm
+from .models import Business
 
 @login_required
 def register_business(request):
@@ -43,9 +44,14 @@ def register_business(request):
 
 @login_required
 def dashboard(request):
-    businesses = request.user.business_set.all()
+    businesses = Business.objects.filter(owner=request.user)
+    total = businesses.count()
+    approved = businesses.filter(status='approved').count()
+    pending = businesses.filter(status='pending').count()
     context = {
         'businesses': businesses,
-        'media_url': settings.MEDIA_URL
+        'total': total,
+        'approved': approved,
+        'pending': pending,
     }
-    return render(request, 'business/dashboard.html/', context)
+    return render(request, 'business/dashboard.html', context)
