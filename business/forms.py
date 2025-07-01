@@ -12,13 +12,16 @@ class BusinessRegistrationForm(forms.ModelForm):
         widgets = {
             'date_established': forms.DateInput(attrs={'type': 'date'}),
         }
+        labels = {
+            'name': 'Business name',
+        }
 
 class PartnershipDetailForm(forms.ModelForm):
     class Meta:
         model = PartnershipDetail
-        fields = ['partners']
+        fields = ['partners_name', 'partners_id_numbers']
 
 class CompanyDetailForm(forms.ModelForm):
     class Meta:
         model = CompanyDetail
-        fields = ['directors', 'shareholders', 'share_capital']
+        fields = ['directors', 'share_capital']

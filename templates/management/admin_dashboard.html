@@ -297,12 +297,7 @@
             <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                 <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">User Management</h3>
-                    <div class="mt-2 flex items-center justify-between">
-                        <p class="text-sm text-gray-500">Manage system users and permissions</p>
-                        <button class="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            Add New User
-                        </button>
-                    </div>
+                    <p class="mt-1 text-sm text-gray-500">View system users</p>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
@@ -312,7 +307,6 @@
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -337,18 +331,10 @@
                                         {% if u.is_active %}Active{% else %}Inactive{% endif %}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="{% url 'user_edit' u.id %}" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
-                                    {% if u.is_active %}
-                                    <a href="{% url 'user_deactivate' u.id %}" class="text-red-600 hover:text-red-900">Deactivate</a>
-                                    {% else %}
-                                    <a href="{% url 'user_activate' u.id %}" class="text-green-600 hover:text-green-900">Activate</a>
-                                    {% endif %}
-                                </td>
                             </tr>
                             {% empty %}
                             <tr>
-                                <td colspan="5" class="px-6 py-4 text-gray-500">No users found.</td>
+                                <td colspan="4" class="px-6 py-4 text-gray-500">No users found.</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -356,20 +342,6 @@
                 </div>
                 <!-- Pagination can be added here if needed -->
             </div>
-
-            <!-- User Roles Management (for superusers only) -->
-            {% if user.is_superuser %}
-            <div class="mt-8 bg-white shadow overflow-hidden sm:rounded-lg">
-                <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">Role Permissions</h3>
-                    <p class="mt-1 text-sm text-gray-500">Configure access levels for different user roles</p>
-                </div>
-                <div class="px-4 py-5 sm:p-6">
-                    <!-- Role permissions management UI here -->
-                    <div class="text-gray-500">Role permissions management coming soon.</div>
-                </div>
-            </div>
-            {% endif %}
         </div>
 
         <!-- Business Records Tab (hidden by default) -->

@@ -155,10 +155,10 @@ class Business(models.Model):
 
 class PartnershipDetail(models.Model):
     business = models.OneToOneField(Business, on_delete=models.CASCADE, related_name='partnership_detail')
-    partners = models.JSONField(help_text="List of partners with names, IDs, PINs, contacts")
+    partners_name = models.CharField(max_length=512, help_text="Comma-separated full names of partners", null=True, blank=True)
+    partners_id_numbers = models.CharField(max_length=512, help_text="Comma-separated ID numbers of partners", null=True, blank=True)
 
 class CompanyDetail(models.Model):
     business = models.OneToOneField(Business, on_delete=models.CASCADE, related_name='company_detail')
-    directors = models.JSONField(help_text="List of directors")
-    shareholders = models.JSONField(help_text="List of shareholders with shares info")
-    share_capital = models.DecimalField(max_digits=12, decimal_places=2)
+    directors = models.CharField(max_length=512, help_text="Comma-separated full names of directors", null=True, blank=True)
+    share_capital = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
