@@ -1,8 +1,9 @@
 from .base import *
+import psycopg2
 
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=['yourdomain.com'])
+ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     'default': {
@@ -10,7 +11,7 @@ DATABASES = {
         'NAME': env('POSTGRES_DB'),
         'USER': env('POSTGRES_USER'),
         'PASSWORD': env('POSTGRES_PASSWORD'),
-        'HOST': env('POSTGRES_HOST', default='localhost'),
+        'HOST': env('POSTGRES_HOST'),
         'PORT': env('POSTGRES_PORT', default='5432'),
     }
 }

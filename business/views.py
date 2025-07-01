@@ -3,42 +3,47 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from .forms import BusinessRegistrationForm, PartnershipDetailForm, CompanyDetailForm
 from .models import Business
+from django.forms import formset_factory
+from django import forms
 
 @login_required
 def register_business(request):
     if request.method == 'POST':
         form = BusinessRegistrationForm(request.POST, request.FILES)
         business_type = request.POST.get('business_type')
+        partnership_form = PartnershipDetailForm(request.POST, prefix='partnership')
+        company_form = CompanyDetailForm(request.POST, prefix='company')
 
-        if form.is_valid():
+        valid = form.is_valid()
+        if business_type == 'partnership':
+            valid = valid and partnership_form.is_valid()
+        elif business_type == 'company':
+            valid = valid and company_form.is_valid()
+
+        if valid:
             business = form.save(commit=False)
             business.owner = request.user
             business.save()
 
-            # Handle type-specific detail
             if business_type == 'partnership':
-                partner_form = PartnershipDetailForm(request.POST)
-                if partner_form.is_valid():
-                    partner = partner_form.save(commit=False)
-                    partner.business = business
-                    partner.save()
+                partnership = partnership_form.save(commit=False)
+                partnership.business = business
+                partnership.save()
             elif business_type == 'company':
-                company_form = CompanyDetailForm(request.POST)
-                if company_form.is_valid():
-                    company = company_form.save(commit=False)
-                    company.business = business
-                    company.save()
+                company = company_form.save(commit=False)
+                company.business = business
+                company.save()
 
-            return redirect('dashboard')
+            return redirect('/business/dashboard/')
     else:
         form = BusinessRegistrationForm()
-        partner_form = PartnershipDetailForm()
-        company_form = CompanyDetailForm()
+        partnership_form = PartnershipDetailForm(prefix='partnership')
+        company_form = CompanyDetailForm(prefix='company')
 
     return render(request, 'business/registration.html', {
         'form': form,
-        'partner_form': partner_form,
-        'company_form': company_form
+        'partnership_form': partnership_form,
+        'company_form': company_form,
     })
 
 
