@@ -30,7 +30,7 @@
         </div>
     </div>
 <!-- Temporary Debug Info -->
-<div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
+<!--<div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
     <strong>Debug Info:</strong><br>
     Approved: {{ approved_count }}<br>
     Pending: {{ pending_count }}<br>
@@ -38,7 +38,7 @@
     Users: {{ user_count }}<br>
     All Businesses: {{ all_businesses|length }}<br>
     All Users: {{ users|length }}<br>
-</div>
+</div>-->
     <!-- Admin Navigation -->
     <div class="bg-white shadow">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -213,7 +213,7 @@
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Business Name</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                <!-- Actions column removed -->
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -230,15 +230,11 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-500">{{ business.created_at|timesince }} ago</div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="{% url 'business_review' business.id %}" class="text-blue-600 hover:text-blue-900 mr-3">Review</a>
-                                    <a href="{% url 'business_approve' business.id %}" class="text-green-600 hover:text-green-900 mr-3">Approve</a>
-                                    <a href="{% url 'business_reject' business.id %}" class="text-red-600 hover:text-red-900">Reject</a>
-                                </td>
+                                <!-- Actions cell removed -->
                             </tr>
                             {% empty %}
                             <tr>
-                                <td colspan="4" class="px-6 py-4 text-gray-500">No pending approvals.</td>
+                                <td colspan="3" class="px-6 py-4 text-gray-500">No pending approvals.</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -351,75 +347,49 @@
                     <h3 class="text-lg leading-6 font-medium text-gray-900">Business Registry</h3>
                     <div class="mt-2 flex items-center justify-between">
                         <p class="text-sm text-gray-500">All registered businesses in the system</p>
-                        <div class="flex space-x-3">
-                            <div class="relative">
-                                <form method="get">
-                                    <input type="text" name="search" placeholder="Search businesses..." value="{{ request.GET.search }}" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-                                        </svg>
-                                    </div>
-                                </form>
-                            </div>
-                            <button class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                Export
-                            </button>
-                        </div>
                     </div>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Business Name</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Registration No.</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">County</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Update Status</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Certificate</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Business Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Owner</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Registration No.</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created At</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Update Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Certificate</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             {% for business in all_businesses %}
                             <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ business.name|default:"-" }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ business.status|title }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ business.owner.email|default:"No Owner" }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ business.registration_number|default:"-" }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ business.created_at|date:"Y-m-d H:i" }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="text-sm font-medium text-gray-900">{{ business.name|default:"-" }}</div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">{{ business.get_business_type_display }}</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">{{ business.registration_number|default:"-" }}</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-500">{{ business.get_county_display }}</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                        {% if business.status == 'approved' %}bg-green-100 text-green-800{% elif business.status == 'rejected' %}bg-red-100 text-red-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
-                                        {% if business.status == 'approved' %}Active{% elif business.status == 'rejected' %}Rejected{% else %}Pending{% endif %}
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {% if business.id %}
                                     <form method="post" action="{% url 'update_business_status' business.id %}">
                                         {% csrf_token %}
-                                        <select name="status" class="border rounded px-2 py-1 text-sm">
+                                        <select name="status">
                                             <option value="pending" {% if business.status == "pending" %}selected{% endif %}>Pending</option>
                                             <option value="approved" {% if business.status == "approved" %}selected{% endif %}>Approved</option>
                                             <option value="rejected" {% if business.status == "rejected" %}selected{% endif %}>Rejected</option>
                                         </select>
-                                        <button type="submit" class="ml-2 px-2 py-1 bg-blue-600 text-white rounded text-xs hover:bg-blue-700">Update</button>
+                                        <button type="submit">Update</button>
                                     </form>
+                                    {% else %}
+                                    N/A
+                                    {% endif %}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     {% if business.certificate %}
-                                        <a href="{{ business.certificate.url }}" target="_blank" class="text-blue-600 hover:underline">View Certificate</a>
+                                        <a href="{{ business.certificate.url }}" target="_blank">View Certificate</a>
                                     {% else %}
-                                        <span class="text-gray-400">No Certificate</span>
+                                        No Certificate
                                     {% endif %}
                                 </td>
                             </tr>
@@ -431,7 +401,6 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- Pagination can be added here if needed -->
             </div>
         </div>
 
