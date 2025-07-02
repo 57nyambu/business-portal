@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block title %}{{ business.name }} - Business Details{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-8">
+  <div class="bg-white shadow-md rounded-lg overflow-hidden">
+    <!-- Header Section -->
+    <div class="bg-blue-700 px-6 py-4">
+      <h1 class="text-2xl font-bold text-white">{{ business.name }}</h1>
+    </div>
+    
+    <div class="border-b border-gray-200"></div>
+
+    <!-- Main Business Details -->
+    <div class="px-6 py-4">
+      <table class="min-w-full divide-y divide-gray-200">
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr class="hover:bg-gray-50">
+            <th scope="row" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">Status:</th>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ business.status|title }}</td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <th scope="row" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">Type:</th>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ business.get_business_type_display }}</td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <th scope="row" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">Registration No.:</th>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ business.registration_number|default:"Pending" }}</td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <th scope="row" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">KRA PIN:</th>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ business.kra_pin }}</td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <th scope="row" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">County:</th>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ business.get_county_display }}</td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <th scope="row" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">Physical Address:</th>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ business.physical_address }}</td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <th scope="row" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">Date Established:</th>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ business.date_established }}</td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <th scope="row" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">Date Registered:</th>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ business.created_at|date:"Y-m-d H:i" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ID Documents Section -->
+    <div class="px-6 py-4 border-t border-gray-200">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {% if business.id_front %}
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <p class="text-sm font-medium text-gray-700 mb-2">ID Front:</p>
+          <img src="{{ business.id_front.url }}" alt="ID Front" class="rounded border border-gray-200 w-full max-w-xs">
+        </div>
+        {% endif %}
+        
+        {% if business.id_back %}
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <p class="text-sm font-medium text-gray-700 mb-2">ID Back:</p>
+          <img src="{{ business.id_back.url }}" alt="ID Back" class="rounded border border-gray-200 w-full max-w-xs">
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Partnership or Company Details -->
+    {% if partnership_detail %}
+    <div class="px-6 py-4 border-t border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-800 mb-3">Partnership Details</h2>
+      <table class="min-w-full divide-y divide-gray-200">
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr class="hover:bg-gray-50">
+            <th scope="row" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">Partners' Names:</th>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ partnership_detail.partners_name }}</td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <th scope="row" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">Partners' ID Numbers:</th>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ partnership_detail.partners_id_numbers }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+
+    {% if company_detail %}
+    <div class="px-6 py-4 border-t border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-800 mb-3">Company Details</h2>
+      <table class="min-w-full divide-y divide-gray-200">
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr class="hover:bg-gray-50">
+            <th scope="row" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">Directors:</th>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ company_detail.directors }}</td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <th scope="row" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-left">Share Capital:</th>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ company_detail.share_capital }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+
+    <!-- Certificate Section -->
+    <div class="px-6 py-4 border-t border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-800 mb-3">Certificate</h2>
+      {% if business.registration_certificate %}
+      <div class="flex flex-wrap gap-4">
+        <a href="{{ business.registration_certificate.url }}" target="_blank" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
+          </svg>
+          View Certificate
+        </a>
+        <a href="{% url 'download_certificate' business.id %}" download class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+          Download Certificate
+        </a>
+      </div>
+      {% else %}
+      <p class="text-sm text-gray-500 italic">Certificate not yet generated.</p>
+      {% endif %}
+    </div>
+
+    <!-- Back Button -->
+    <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+      <a href="{% url 'dashboard' %}" class="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-800">
+        <svg class="-ml-1 mr-1 h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+        </svg>
+        Back to Dashboard
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

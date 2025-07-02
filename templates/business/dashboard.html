@@ -108,10 +108,10 @@
                                 </div>
                             </div>
                             <div class="ml-2 flex-shrink-0 flex">
-                                <a href="#" class="mr-3 text-sm font-medium text-blue-600 hover:text-blue-500">View</a>
+                                <a href="{% url 'business_detail' business.id %}" class="mr-3 text-sm font-medium text-blue-600 hover:text-blue-500">View</a>
                                 <a href="#" class="text-sm font-medium text-gray-500 hover:text-gray-700">Edit</a>
                                 {% if business.status == 'approved' and business.registration_certificate %}
-                                    <a href="{{ media_url }}{{ business.registration_certificate }}" class="ml-3 text-sm font-medium text-green-600 hover:text-green-800" target="_blank">Download Certificate</a>
+                                    <a href="{% url 'download_certificate' business.id %}" class="ml-3 text-sm font-medium text-green-600 hover:text-green-800" target="_blank">Download Certificate</a>
                                 {% endif %}
                             </div>
                         </div>
